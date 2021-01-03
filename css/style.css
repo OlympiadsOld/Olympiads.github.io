@@ -15,9 +15,55 @@ ul {
   padding: 0;
 }
 
+.NormalDisplay {
+	
+}
+
+.NormalDisplay .icon {
+	display: none;
+}
+
 li {
-  display: inline-block;
+  float: left;
+  display: block;
   margin-right: 15px;
+}
+
+@media screen and (max-width: 600px) {
+  ul.NormalDisplay li {
+    display: none;
+  }
+  ul.NormalDisplay li:first-of-type {
+  	 float: left;
+  	 display: block;
+  }
+  .NormalDisplay .icon {
+    float: right;
+    display: block;
+  }
+  ul.NormalDisplay li:last-of-type {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  li {
+  	float: none;
+  }
+  .NormalDisplayDisabled {
+    position: relative;
+  }
+  .NormalDisplayDisabled .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  .NormalDisplayDisabled a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
 }
 
 .column {
@@ -40,9 +86,9 @@ nav {
 }
 
 nav a {
-	text-align: center;
-	margin: 0px 15px 0px 0;
-	text-decoration: none;
+  text-align: center;
+  margin: 0px 15px 0px 0;
+  text-decoration: none;
   font-size: 16px;
   color: #EDF5E1;
 }
