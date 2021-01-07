@@ -29,11 +29,7 @@ ul.topnav li {
   margin-right: 15px;
 }
 
-li.topnav {
-  float: left;
-  display: block;
-  margin-right: 15px;
-}
+
 
 @media screen and (max-width: 630px) {
   ul.NormalDisplay li {
@@ -50,6 +46,9 @@ li.topnav {
   ul.NormalDisplay li:last-of-type {
     float: right;
     display: block;
+  }
+  .features {
+    flex-wrap: wrap;
   }
 }
 
@@ -72,7 +71,11 @@ li.topnav {
   }
 }
 
-.column {
+ul.column li{ 
+  display: block;
+}
+
+li.column{
   display: block;
 }
 
