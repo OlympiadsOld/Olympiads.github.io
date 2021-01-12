@@ -1,6 +1,7 @@
 body {
   margin: 0px;
   padding: 0;
+  padding-bottom: 10px;
   background: #5CDB95;
   color: #05386B;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -86,8 +87,11 @@ section.archive a:hover {
   background-color: #5CDB95;
   padding: 0px;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
-  margin: 20px;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
 }
 .features ul {
   margin: auto;
@@ -100,20 +104,21 @@ section.archive a:hover {
   margin: auto;
   text-align: center;
   width: 100%;
-  font-size: 30px;
+  font-size: 25pt;
   color: #05386B;
+  
 }
 .features a {
   text-decoration: none;
 }
 .features figure img {
-  width: 80%;
+  width: 70%;
 }
 
 div.navi{
-  position: absolute;
-  bottom: 25px;
-  right: 15px;
+  position: fixed;
+  bottom: 15px;
+  right: 10px;
 }
 a.navi {
   text-decoration: none;
