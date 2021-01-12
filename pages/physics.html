@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <title>Olympiads</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../scripts/NavigationArrows.js"></script>
   </head>
 
   <body>
@@ -23,7 +24,7 @@
 
     <section>
       <p>
-        За успешното представяне в олимпиадите по физика е необходимо да се познават основните физични закони, тяхното приложиение и голямо количество опит, който се натрупва чрез решаване на задачи.
+        За успешното представяне в олимпиадите по физика е необходимо да се познават основните физични закони, тяхното приложение и голямо количество опит, който се натрупва чрез решаване на задачи.
         <br>
         Препоръчваме следните сборници и учебници по физика за натрупването на знания, нужни за участие в състезанията по физика.
         <ul class=column>
@@ -35,15 +36,19 @@
       </p>
     </section>
 
-    <section class=archive>
+    <section class="archive features">
       <ul>
-        <li class="column"><a href="physics/ipho.html">International Physics Olympiad</a></li>
-        <li class="column"><a href="physics/olimpiada.html">Национална Олимпиада по Физика</a></li>
-        <li class="column"><a href="physics/allrussian.html">Всероссийская олимпиада школьников по Физике</a></li>
         <li class="column"><a href="physics/esenni.html">Национално есенно състезание по Физика</a></li>
         <li class="column"><a href="physics/proletni.html">Национално пролетно състезание по Физика</a></li>
+        <li class="column"><a href="physics/olimpiada.html">Национална Олимпиада по Физика</a></li>
+        <li class="column"><a href="physics/ipho.html">International Physics Olympiad</a></li>
+        <li class="column"><a href="physics/allrussian.html">Всероссийская олимпиада школьников по Физике</a></li>
+        
       </ul>
     </section>
-    
+    <div class="navi">
+      <a onclick="goBack()" class="previous round navi">&#8249;</a>
+      <a onclick="goForward()" class="next round navi">&#8250;</a>
+    </div>
   </body>
 </html>
