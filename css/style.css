@@ -15,7 +15,7 @@ ul {
   padding: 0;
 }
 p {
-  text-align: justify;
+  text-align: start;
 }
 p.title {
   text-align: center;
