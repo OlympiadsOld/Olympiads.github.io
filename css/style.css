@@ -146,3 +146,25 @@ a.navi:hover {
 .round {
   border-radius: 50%;
 }
+
+/*  BREADCRUMBS  */
+ul.breadcrumb {
+  list-style: none;
+  padding: 5px 25px;
+}
+ul.breadcrumb li {
+  display: inline;
+  font-size: 18px;
+}
+ul.breadcrumb li+li:before {
+  padding: 8px;
+  content: "/\00a0";
+}
+ul.breadcrumb li a {
+  color: #0275d8;
+  text-decoration: none;
+}
+ul.breadcrumb li a:hover {
+  color: #01447e;
+  border-bottom: #01447e solid 2px;
+}
