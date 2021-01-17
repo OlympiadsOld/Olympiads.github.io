@@ -1,51 +1,74 @@
+/*  GENERAL */
 body {
   margin: 0px;
   padding: 0;
   padding-bottom: 10px;
-  background: #5CDB95;
+  background: white;
   color: #05386B;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 20px;
   text-justify: inter-word;
 }
-
 ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-
-.NormalDisplay .icon {
-	display: none;
+p {
+  text-align: justify;
+}
+p.title {
+  text-align: center;
+}
+section {
+  padding: 0 25px;
+}
+a {
+  text-decoration: none;
+  color: green;
+}
+a:hover {
+  border-bottom: 2px solid green;
+}
+.introduction {
+  font-size: 20px;
+}
+ul.bullet {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+ul.bullet li {
+  margin-bottom: 7px; 
 }
 
+/*  PAGE NOT FOUND  */
+body.error {
+  padding-bottom: 0px;
+}
+.fill {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden
+}
+.fill img {
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%
+}
+
+/*  NAVIGATION BAR  */
+header {
+  background: #05386B;
+  color: white;
+  padding-left: 25px;
+  padding-bottom: 5px;
+}
 ul.topnav li {
   float: left;
   display: block;
   margin-right: 15px;
 }
-
-p {
-  text-align: justify;
-}
-
-
-
-ul.column li{ 
-  display: block;
-}
-
-li.column{
-  display: block;
-}
-
-header {
-  background: #05386B;
-  color: #EDF5E1;
-  padding-left: 15px;
-  padding-bottom: 5px;
-}
-
 nav {
   overflow: hidden;
   padding: 15px 0px 5px 0;
@@ -53,38 +76,19 @@ nav {
   font-weight: bold;
   
 }
-
 nav a {
   text-align: center;
   margin: 0px 15px 0px 0;
   text-decoration: none;
   font-size: 16px;
-  color: #EDF5E1;
+  color: white
 }
-
 nav a:hover {
-  color: #379683;
-  border-bottom: 2px solid #379683; 
+  border-bottom: 2px solid white; 
 }
 
-section {
-  padding: 0 10px;
-}
-section.archive a {
-  text-decoration: none;
-  color: #05386B;
-}
-
-section.archive a:hover {
-  border-bottom: 2px solid #05386B;
-}
-
-.introduction {
-  font-size: 20px;
-}
-
+/*  FEATURES  */
 .features {
-  background-color: #5CDB95;
   padding: 0px;
   display: flex;
   flex-wrap: wrap;
@@ -108,13 +112,14 @@ section.archive a:hover {
   color: #05386B;
   
 }
-.features a {
-  text-decoration: none;
+.logos a:hover {
+  border: none;
 }
 .features figure img {
-  width: 70%;
+  width: 65%;
 }
 
+/*  NAVIGATION BUTTONS  */
 div.navi{
   position: fixed;
   bottom: 15px;
@@ -128,6 +133,7 @@ a.navi {
 a.navi:hover {
   background-color: #ddd;
   color: black;
+  border: none;
 }
 .previous {
   background-color: #f1f1f1;
