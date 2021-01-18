@@ -118,7 +118,16 @@ nav a:hover {
 .features figure img {
   width: 65%;
 }
-
+.long {
+  display: flex;
+  justify-content: center;
+}
+.long ul {
+  margin: 0 20px;
+}
+.long ul li {
+  margin-bottom: 10px;
+}
 /*  NAVIGATION BUTTONS  */
 div.navi{
   position: fixed;
