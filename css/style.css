@@ -36,6 +36,7 @@ a:hover {
 ul.bullet {
   list-style-type: disc;
   list-style-position: inside;
+  padding-bottom: 10px;
 }
 ul.bullet li {
   margin-bottom: 7px; 
