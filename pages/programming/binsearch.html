@@ -1,0 +1,78 @@
+<!doctype html>
+
+<html>
+  <head>
+    <link rel="stylesheet" href="../../css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="../../scripts/NavigationArrows.js"></script>
+    <title>Olympiads</title>
+    <!-- highlightjs for code highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/color-brewer.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <!-- end highlightjs -->
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <ul class="topnav">
+          <li><a href="../../index.html">Начало</a></li>
+          <li><a href="../astronomy.html">Астрономия</a></li>
+          <li><a href="../physics.html">Физика</a></li>
+          <li><a href="../programming.html">Информатика</a></li>
+          <li><a href="../../contact.html">Контакти</a></li>
+        </ul>
+      </nav>
+      <h1>Алгоритми</h1>
+    </header>
+    <ul class="breadcrumb">
+      <li><a href="../../index.html">Начало</a></li>
+      <li><a href="../physics.html">Информатика</a></li>
+      <li>Двоично търсене</li>
+    </ul>
+
+    <section>
+      <p class="intro">
+      		Binary Search (Двоично търсене) <p></p>
+					Задача : В сортиран масив с n елемента и търсим първия елемент по-голям от дадено x. <p></p>
+					Наивния подход е да обхождаме докато не намерим елемента но това е алгоритъм със сложност O(N), но това е много неефективно. Това да имаме сортиран масив може да ни даде решение със сложност O(logN). <p></p>
+					Самия алгоритъм : <p></p>
+					Ще използваме две индекса за граници (left и right) като те ще поддържат интервала, в който се намира търсеното x (в началото left = 0, right = n-1 (индексация от 0)). Проверявайки средния елемент (с индекс (left+right)/2) може да направим доста логични заключения : 
+					Нека индексът на средата е mid = (left+right)/2. Тогава имаме два варианта в нашата задача :
+					<ol>
+							<li>a[mid] < x – тогава със сигурност търсеният елемент е с индекс между [mid+1;right] </li>
+							<li>a[mid] &#8805; x – тогава елементът отговаря на условието, но няма как да сме сигурни, че е първият по-голям от х, което значи, че ако съществува някой по-добър от намерения, то той ще е в интервала [left;mid-1] </li>
+					</ol>
+					Както може би се досещате ще въртим този цикъл докато интервала ни не стане невалиден (left > right) като по пътя всеки елемент a[mid], който отговаря на исканото ще бъде запазван като „най-добър“, защото в един момент получения интервал (в случая [left;mid-1]) няма да съдържа елементи отговарящи на исканото и последният запазен a[mid] ще ни даде отговора. <p></p>
+					Имплементация :
+      </p>
+			<code><pre>int left = 0; /// в началото интервала, в който може да се намира елемента е
+int right = n-1; /// целия масив
+while(left <= right)
+{
+    int mid = (left+right)/2;
+    if(a[mid] >= x)
+    {
+        last_ans = a[mid];
+        right = mid-1;
+    }
+    else left = mid+1;
+}
+			</code></pre>
+			<p class="intro">
+   		Забележки : <p></p>
+			Ако търсим друг елемент с подобни свойства (последния по-малък от х, последния по-малък или равен на х т.н.) чрез леки модификации на алгоритъма задачата ще се сведе до същата.
+			Може да се запитанте защо точно средния ? – Защото ще даде най-добра сложност дори в най-лошия случай. Aко не ми вярвате може да се пробвате да сметнете сложността в най-лошич случай ако вземаме да речем елемента с индекс който дели интервала [left;right] в отношение 1:2 считано от right)
+    	<p>Задачи и ресурси:</p>
+    	<p>Може да намерите още лекции по темата на следния <a href="https://codeforces.com/edu/course/2/lesson/6/1/practice">линк</a></p>
+    	<p><a href="https://codeforces.com/problemset/problem/1461/D">Divide and Summarize</a></p>
+    	<p><a href="https://codeforces.com/problemset/problem/1370/D">Odd-Even Subsequence</a></p>
+    	<p><a href="https://codeforces.com/problemset/problem/1437/E">Make It Increasing</a></p>
+    	<p><a href="https://codeforces.com/problemset/problem/1370/F1">The Hidden Pair (Easy Version)</a></p>
+    	<p><a href="https://codeforces.com/problemset/problem/1370/F2">The Hidden Pair (Hard Version)</a></p>
+    	</p>
+    	
+    </section>
+  </body>
+</html>
