@@ -1,0 +1,102 @@
+﻿<!doctype html>
+
+<html>
+  <head>
+    <link rel="stylesheet" href="../../css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <script src="../../scripts/NavigationArrows.js"></script>
+    <title>Olympiads</title>
+    <!-- highlightjs for code highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/color-brewer.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <!-- end highlightjs -->
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <ul class="topnav">
+          <li><a href="../../index.html">Начало</a></li>
+          <li><a href="../astronomy.html">Астрономия</a></li>
+          <li><a href="../physics.html">Физика</a></li>
+          <li><a href="../programming.html">Информатика</a></li>
+          <li><a href="../../contact.html">Контакти</a></li>
+        </ul>
+      </nav>
+      <h1>Алгоритми</h1>
+    </header>
+    <ul class="breadcrumb">
+      <li><a href="../../index.html">Начало</a></li>
+      <li><a href="../programming.html">Информатика</a></li>
+      <li>BFS</li>
+    </ul>
+
+    <section>
+      <p class="intro">
+      		BFS (Breadth-first search – Търсене в ширина) <p></p>
+					Задача : Искаме да намерим дължините на най-краткия път от връх v до останалите върхове. <p></p>
+					За целта ще използваме обхождане на граф в ширина. Подобно на DFS (add link to article*) ще минем през всички върхове, но тук ще искаме да пазим колко е отдалечен всеки от началния и така да обхождаме върховете. <p></p>
+					Алгоритъм : <p></p>
+					Използваме опашка, за да следим кой е най-близо. В началото ще имаме само началния връх v. Когато извадим връх u от опашката ще маркираме всичките му съседи с разстояние с едно по-голямо. Така след като махнем началния на втората итерация всички върхове на разстояние 1 ще са маркирани и вкарани в опашката. По този начин винаги ще достигнем до всеки връх по най-късия път. <p></p>
+					Имплементация : <p></p>
+      </p>
+			<code><pre>vector<int> adj[MAX_N]; /// списък на съседство
+int n; /// брой върхове, MAX_N - максимален брой върхове
+int starting_v; /// началния връх
+queue<int> q; /// върховете, които чакат да се обходят
+bool used[MAX_N]; /// пазим дали е обхождан върха
+int dist[MAX_N]; /// в dist[v] пазим разстоянието от v до началния
+
+void bfs()
+{
+    q.push(starting_v); /// вкарваме началния
+    used[starting_v] = true;
+    dist[starting_v] = 0;
+    while(!q.empty()) /// докато има необработени
+    {
+        int u = q.front();
+        for(int i=0; i < adj[u].size(); i++)
+        {
+            if(used[adj[u][i]]==0) /// недостигнатите ги слагаме в опашката
+            {
+                used[adj[u][i]] = true;
+                dist[adj[u][i]] = dist[u]+1;
+                q.push(adj[u][i]);
+            }
+        }
+    }
+}
+			</code></pre>
+			<p class="intro">
+   		<p>Задачи и ресурси:</p>
+    	<p><a href="http://spoj.com/problems/AKBAR">SPOJ: AKBAR</a></p>
+    	<p><a href="http://www.spoj.com/problems/NAKANJ/">SPOJ: NAKANJ</a></p>
+     	<p><a href="http://www.spoj.com/problems/WATER">SPOJ: WATER</a></p>
+    	<p><a href="http://www.spoj.com/problems/MICEMAZE/">SPOJ: MICE AND MAZE</a></p>
+    	<p><a href="http://acm.timus.ru/problem.aspx?space=1&num=2034">Timus: Caravans</a></p>
+     	<p><a href="https://devskill.com/CodingProblems/ViewProblem/60">DevSkills - Holloween Party</a></p>
+     	<p><a href="https://devskill.com/CodingProblems/ViewProblem/150">DevSkills - Ohani And The Link Cut Tree</a></p>
+    	<p><a href="http://www.spoj.com/problems/SPIKES/">SPOJ - Spiky Mazes</a></p>
+    	<p><a href="http://www.spoj.com/problems/ADV04F1/">SPOJ - Four Chips*</a></p>
+     	<p><a href="http://www.spoj.com/problems/INVESORT/">SPOJ - Inversion Sort</a></p>
+     	<p><a href="http://codeforces.com/contest/59/problem/E">Codeforces - Shortest Path</a></p>
+    	<p><a href="http://www.spoj.com/problems/MULTII/">SPOJ - Yet Another Multiple Problem</a></p>
+    	<p><a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2387">UVA 11392 - Binary 3xType Multiple</a></p>
+     	<p><a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1909">UVA 10968 - KuPellaKeS</a></p>
+     	<p><a href="http://codeforces.com/contest/796/problem/D">Codeforces - Police Stations</a></p>
+    	<p><a href="http://codeforces.com/contest/821/problem/D">Codeforces - Okabe and City</a></p>
+    	<p><a href="http://www.spoj.com/problems/DIGOKEYS/">SPOJ - Find the Treasure</a></p>
+     	<p><a href="http://codeforces.com/contest/653/problem/E">Codeforces - Bear and Forgotten Tree 2</a></p>
+     	<p><a href="http://codeforces.com/contest/769/problem/C">Codeforces - Cycle in Maze</a></p>
+    	<p><a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2287">UVA - 11312 - Flipping Frustration</a></p>
+    	<p><a href="http://www.spoj.com/problems/ADACYCLE/">SPOJ - Ada and Cycle</a></p>
+     	<p><a href="https://cses.fi/problemset/task/1193">CSES - Labyrinth</a></p>
+     	<p><a href="https://cses.fi/problemset/result/794325/">CSES - Message Route</a></p>
+     	<p><a href="https://cses.fi/problemset/task/1194">CSES - Monsters</a></p>
+    	</p>
+    	
+    </section>
+  </body>
+</html>
