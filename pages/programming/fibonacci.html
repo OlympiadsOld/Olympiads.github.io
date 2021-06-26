@@ -1,0 +1,119 @@
+<!doctype html>
+
+<html>
+  <head>
+    <link rel="stylesheet" href="../../css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <script src="../../scripts/NavigationArrows.js"></script>
+    <title>Olympiads</title>
+    <!-- highlightjs for code highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/color-brewer.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <!-- end highlightjs -->
+    <!-- MathJax -->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            processEscapes: true
+          }
+        });
+      </script>
+    <!-- MathJax -->
+</head>
+  <body>
+    <header>
+      <nav>
+        <ul class="topnav">
+          <li><a href="../../index.html">Начало</a></li>
+          <li><a href="../astronomy.html">Астрономия</a></li>
+          <li><a href="../physics.html">Физика</a></li>
+          <li><a href="../programming.html">Информатика</a></li>
+          <li><a href="../../contact.html">Контакти</a></li>
+        </ul>
+      </nav>
+      <h1>Алгоритми</h1>
+    </header>
+    <ul class="breadcrumb">
+      <li><a href="../../index.html">Начало</a></li>
+      <li><a href="../programming.html">Информатика</a></li>
+      <li>Числа на Фибоначи</li>
+    </ul>
+
+    <section>
+      <h2>
+      		<strong>Fibonacci numbers (Числа на Фибоначи)</strong>
+      </h2>
+      <p>
+                    &nbsp;&nbsp;&nbsp;&nbsp;Предполагам повечето от Вас са чували вече за числата на Фибоначи. Ако ли не - това е една от най-известните 
+                    математически редици, измислена от италиянеца Леонардо Боначи (наричан Фибоначи) около 1200 г. Редицата се образува
+                    доста лесно като всеки член е равен на сбора на предните два като вземем предвид, че нулевия (да нулевия) и първия член са единици. (Първите няколко члена на редицата са $0,1,1,2,3,5,8,13,21,34,55...$) <br>
+                    Тук ще разгледаме някои формули, които в определени задачи (До С група главно) могат да са ключови за решеването на определени 
+                    задачи. <br>
+                    Нека елементите са ${F_1},{F_2},{F_3}...{F_i}$ - тогава връзката ни е ${F_n} = {F_{n - 1}} + {F_{n - 2}}$ <br>
+                    <h3>Свойства : </h3>
+                    <ul>
+                        <li>- Свойство на Касини: $${F_{n - 1}}{F_{n + 1}} - {F_n}^2 = {( - 1)^n}$$</li>
+                        <li>- Правило за "събиране": $${F_n}_{ + k} = {F_k}{F_n}_{ + 1} + {F_{k - 1}}{F_n}$$</li>
+                        <li>- От горните две в случая с k = n , може да получим $${F_{2n}} = {F_n}({F_{n + 1}} + {F_{n - 1}})$$</li>
+                        <li>- От тук по индукция може да докажем, че за някакво позитивно $k$, ${F_{nk}}$ е кратно на ${F_{k}}$. Обратното също е вярно - ако ${F_{m}}$ е кратно на ${F_{n}}$, то $m$ е кратно на $n$. </li>
+                        <br>
+                        <li>- GCD (greatest common devisor - най-голям общ делител) : $$GCD({F_m},{F_n}) = {F_{GCD(m,n)}}$$ </li>    
+                        <li>*Числата на Фибоначи са най-трудните тестове за алгоритъма на Евклид <a href="https://math.libretexts.org/Bookshelves/Combinatorics_and_Discrete_Mathematics/Book%3A_Elementary_Number_Theory_(Raji)/01%3A_Introduction/1.07%3A_Lame's_Theorem">(Теорема на Ламе)</a></li>
+                    </ul>
+                    <h3>Методи за изчисляване на $n$-тия елемент:</h3><br>
+                    <ul>
+                        <li>- Формула на Бине</li>
+                        $${F_n} = {{{{\left( {{{(1 + \sqrt 5 )} \over 2}} \right)}^n} - {{\left( {{{(1 - \sqrt 5 )} \over 2}} \right)}^n}} \over {\sqrt 5 }}$$
+                        Макар да е с константи, в програмирането формулата би изисквала огромна точност на ирационални числа, което е невъзможно (чак невъзможно не е, но е неописуемо по-трудоемко предвид това колко по-лесни са другите два метода)
+                        <br><br>
+                        <li>- Умножение на матрици</li>
+                        С умножение на матрици лесно се доказва следната закономерност 
+                        $$({F_{n - 1}}{F_n}) = ({F_{n - 2}}{F_{n - 1}}) \cdot \left( {\matrix{
+                            0 & 1  \cr 
+                            1 & 1  \cr 
+                         
+                          } } \right)$$
+                          Полагайки $P \equiv \left( {\matrix{
+                            0 & 1  \cr 
+                            1 & 1  \cr 
+                         
+                          } } \right)$ ще получим:
+                          $$({F_n}{F_{n + 1}}) = ({F_0}{F_1}) \cdot {P^n}$$
+                          Т.е. може да намерим отговара повдигайки $P$ на степен $n$, което може да стане за $O(logN)$ (Виж Умножение на матрици)
+                          <br><br>
+
+                        <li>- Двоично намиране</li>
+                        От горния метод могат да бъдат намерени следните закономерности:
+                        $${F_{2k}} = {F_k}(2{F_{k + 1}} - {F_k})$$
+                        $${F_{2k + 1}} = F_{_{k + 1}}^2 + F_k^2$$
+                        Чрез горните фомули можем много да улесним кода си:
+                        <code><pre>pair&#60;int,int&#62; fibonacci(int n)
+{
+    if(n == 0) return {0,1};
+    int p = (fibonacci(n/2));
+    int even = p.first * (2 * p.second - p.first);
+    int odd = p.first * p.first + p.second * p.second;
+    if(n % 2 == 1) return {odd, even + odd};
+    else return {even, odd};
+}</code></pre>
+                        Функцията ще върне двойката ${F_n}$ и ${F_{n+1}}$. 
+                        </ul>
+                    
+
+      </p>
+			<p>
+    	<p>Задачи и ресурси:</p>
+    	<p><a href="https://www.spoj.com/problems/MAIN74/">SPOJ - Euclid Algorithm Revisited</a></p>
+    	<p><a href="https://www.spoj.com/problems/FIBOSUM/">SPOJ - Fibonacci Sum</a></p>
+    	<p><a href="https://www.hackerrank.com/contests/codesprint5/challenges/is-fibo/problem">HackerRank - Is Fibo</a></p>
+    	<p><a href="https://dmoj.ca/problem/fibonacci">DMOJ - Fibonacci Sequence</a></p>
+    	<p><a href="https://dmoj.ca/problem/fibonacci2">DMOJ - Fibonacci Sequence (Harder)</a></p>
+    	</p>
+    	
+    </section>
+  </body>
+</html>
