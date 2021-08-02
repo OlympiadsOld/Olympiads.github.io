@@ -1,0 +1,172 @@
+﻿<!doctype html>
+
+<html>
+  <head>
+    <link rel="stylesheet" href="../../css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <script src="../../scripts/NavigationArrows.js"></script>
+    <title>Olympiads</title>
+    <!-- highlightjs for code highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/color-brewer.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <!-- end highlightjs -->
+    <!-- MathJax -->
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {
+            inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+            processEscapes: true
+          }
+        });
+      </script>
+    <!-- MathJax -->
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <ul class="topnav">
+          <li><a href="../../index.html">Начало</a></li>
+          <li><a href="../astronomy.html">Астрономия</a></li>
+          <li><a href="../physics.html">Физика</a></li>
+          <li><a href="../programming.html">Информатика</a></li>
+          <li><a href="../../contact.html">Контакти</a></li>
+        </ul>
+      </nav>
+      <h1>Алгоритми</h1>
+    </header>
+    <ul class="breadcrumb">
+      <li><a href="../../index.html">Начало</a></li>
+      <li><a href="../programming.html">Информатика</a></li>
+      <li>Минимално покриващо дърво</li>
+    </ul>
+
+    <section>
+      <h2>
+      		<strong>MST (Minimum spanning tree – Минимално покриващо дърво)</strong>
+      </h2>
+      <p>
+					Задача : Имаме свързан претеглен неорентиран граф с $n$ върха и $m$ ребра. Искаме да останат $n-1$ ребра (графът да стане дърво) като искаме сбора на останалите ребра (участващите в дървото) да е минимален. <p></p>
+					За задачата ще използваме точно гореспоменатото минимално покриващо дърво. Нека първо споменем някои свойства на MST:<p></p>
+					<ol>
+							<li>Ако графа е с различни ребра има единствено такова дърво – иначе може да има много като алгоритъма връща едно от тях.</li>
+							<li>MST е също дървото с най-малко произведение на ребрата. (лесно се доказва като сменим теглата на ребрата с логаритмите им)</li>
+							<li>В MST максималното тегло на ребро в дървото е минималното във всички такива дървета.</li>		
+							<li>Максимално покриващо дърво може да се получи по същия начин като се сменят знаците на всички ребра или се промени начина на сортиране (виж по-долу)</li>					
+					</ol>
+					Има няколко алгоритъма, които решават задачата, но тук ще се съсредоточим върху алгоритъма на Крускал, създаден от Joseph Bernard Kruskal през 1956. <p></p>
+					Самият алгоритъм : <p></p>
+					Представете си всеки връх като отделен от другите в свое дърво (никакви ребра не включваме още). Сега, обхождайки ребрата в нарастващ ред по теглото им, ще започнем да „свързваме дърветата“. Ако реброто, което разглеждаме в момента обединява два върха, които са в различни дървета то ние ги свързваме, иначе пропускаме реброто.<p></p>
+      		Нека разгледаме следния граф : <p></p>
+      </p>
+      <img src="mst1.png" alt="Примерен граф">
+      <p>В началото на алгоритъма всички ребра ще са отделени в нарастващ ред и ще имаме само върховете, отделени в свои дървета : </p>
+      <img src="mst2.png" alt="Началният граф">
+      <p>Сега спокойно ще добавим ребрата с тежест 1 и 2, но стигайки до теброто междъ 1 и 5 с тегло 3 ние ще видим, че двата върха с в едно и също дърво и няма да сложим реброто. </p>
+      <img src="mst3.png" alt="Обработваме графа">
+      <p>Аналогично ще продължим свързването докато получим резултата – </p>
+			<img src="mst4.png" alt="Резултатен граф">
+			<p>Има различни имплементации, но тук ще разгледаме една, която използва DSU (Disjoint set union) като сложността ѝ е $O(M log N)$</p>
+			<p>Имплементация :</p>
+			<code><pre>vector<int> level(MAX_N),par(MAX_N); /// level - ниво на всяко дърво ( "балансирайки дърветата" се получава по-добра сложност при връщане на първия родител)
+/// par - директния родител на върха
+int n,m;
+struct Edge
+{
+    int u,v,w;
+    Edge(){}
+    Edge(int _u, int _v, int _w)
+    {
+       u = _u; v = _v; w = _w;
+    }
+};
+vector<Edge> adj[MAX_N]; /// запазваме графа
+vector<Edge> edges; /// ребрата
+vector<Edge> used_list; /// използвани в минималното дърво
+bool comparator(Edge e1, Edge e2) /// за сортиране
+{
+    return e1.w < e2.w;
+}
+void make_set(int v) /// отделя всеки връх като самостоятелно дърво
+{
+    par[v] = v;
+    level[v] = 0;
+}
+int find_set(int v) /// намира първия родител
+{
+    if(v == par[v]) return v;
+    par[v] = find_set(par[v]);
+    return par[v];
+}
+void union_sets(int a, int b) /// обединява две дървета
+{
+    a = find_set(a);
+    b = find_set(b);
+    if(a != b)
+    {
+        if(level[a] < level[b]) swap(a,b);
+        par[b] = a;
+        if(level[a] == level[b])
+            level[a]++;
+    }
+}
+    sort(edges.begin(),edges.end(),comparator);
+    int sum_of_used_edges = 0;
+    for(int i=0; i<=n; i++) make_set(i);
+    for(auto x: edges)
+    {
+        if(find_set(x.v) != find_set(x.u))
+        {
+            sum_of_used_edges += x.w;
+            used_list.push_back(x);
+            union_sets(x.v, x.u);
+        }
+    }
+
+			</code></pre>
+    	<p>Задачи и ресурси:</p>
+    	<p>Може да намерите още лекции по темата на следния <a href="">линк</a>.</p>
+    	<p><a href="https://www.spoj.com/problems/KOICOST/">SPOJ - Koicost</a></p>
+    	<p><a href="https://www.spoj.com/problems/MARYBMW/">SPOJ - MaryBMW</a></p>
+    	<p><a href="https://www.codechef.com/ICL2016/problems/ICL16A">Codechef - Fullmetal Alchemist</a></p>
+    	<p><a href="https://codeforces.com/contest/160/problem/D">Codeforces - Edges in MST</a></p>
+    	<p><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3328">UVA 12176 - Bring Your Own Horse</a></p>    	
+    	<p><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1541">UVA 10600 - ACM Contest and Blackout</a></p>
+    	<p><a href="https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=1665">UVA 10724 - Road Construction</a></p>
+    	<p><a href="https://www.hackerrank.com/contests/june-world-codesprint/challenges/johnland/problem">Hackerrank - Roads in HackerLand</a></p>
+    	<p><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2757">UVA 11710 - Expensive subway</a></p>
+    	<p><a href="https://www.codechef.com/problems/CHEFELEC">Codechef - Chefland and Electricity</a></p>
+    	<p><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=1248">UVA 10307 - Killing Aliens in Borg Maze</a></p>
+    	<p><a href="https://codeforces.com/problemset/problem/32/C">Codeforces - Flea</a></p>
+    	<p><a href="https://codeforces.com/problemset/problem/598/D">Codeforces - Igon in Museum</a></p>
+    	<p><a href="http://codeforces.com/problemset/problem/744/A">Codeforces - Hongcow Builds a Nation</a></p>
+    	<p><a href="https://devskill.com/CodingProblems/ViewProblem/344">DevSkills - Repairing Road</a></p>
+    	<p><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=849">UVA - 908 - Re-connecting Computer Sites</a></p>
+    	<p><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3649">UVA 1208 - Oreon</a></p>
+    	<p><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=3676">UVA 1235 - Anti Brute Force Lock</a></p>
+    	<p><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=975">UVA 10034 - Freckles</a></p>
+    	<p><a href="https://onlinejudge.org/index.php?option=onlinejudge&page=show_problem&problem=2169">UVA 11228 - Transportation system</a></p>
+    	<p><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2678">UVA 11631 - Dark roads</a></p>
+    	<p><a href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2833">UVA 11733 - Airports</a></p>
+    	<p><a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=8&page=show_problem&problem=2847">UVA 11747 - Heavy Cycle Edges</a></p>
+    	<p><a href="https://www.spoj.com/problems/BLINNET/">SPOJ - Blinet</a></p>
+    	<p><a href="https://www.spoj.com/problems/IITKWPCG/">SPOJ - Help the Old King</a></p>
+    	<p><a href="http://codeforces.com/contest/17/problem/B">Codeforces - Hierarchy</a></p>
+    	<p><a href="https://www.spoj.com/problems/EC_MODE/">SPOJ - Modems</a></p>
+    	<p><a href="https://cses.fi/problemset/task/1675">CSES - Road Reparation</a></p>
+    	<p><a href="https://cses.fi/problemset/task/1676">CSES - Road Construction</a></p>
+    	</p>
+    	
+    </section>
+    <style>
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+  </body>
+</html>
